@@ -68,11 +68,11 @@ def main():
                 print (results)
                 time.sleep(0.1)
                 requ += 1
-                if requ >= int(amount):
-                    break
                 if bool(inputs.output):
                     save(inputs.output,results)
                 time.sleep(0.1)
+                if requ >= int(amount):
+                    break
         except Exception as e:
             print(e)
 if __name__ == '__main__':
