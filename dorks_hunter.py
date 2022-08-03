@@ -16,7 +16,7 @@ def parseArgs():
     return args
 
 def save(file,data):
-    file = open((file), "w")
+    file = open((file), "a")
     file.write(str(data))
     file.write("\n")
     file.close()
@@ -61,6 +61,8 @@ def main():
 
     for description, dork in dorks.items():
         print ("\n"+description+"\n")
+        if bool(inputs.output):
+            save(inputs.output,description)
         try:
             for results in search(dork, tld="com", lang="en", num=int(amount), start=0, stop=None, pause=2):
                 print (results)
@@ -69,7 +71,6 @@ def main():
                 if requ >= int(amount):
                     break
                 if bool(inputs.output):
-                    save(inputs.output,description)
                     save(inputs.output,results)
                 time.sleep(0.1)
         except Exception as e:
