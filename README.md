@@ -12,7 +12,7 @@ Small utility to search for useful google dorks hardcoded in the in the [script]
 ```bash
 git clone https://github.com/six2dez/dorks_hunter
 cd dorks_hunter
-pip3 install -r requirements
+pip3 install -r requirements.txt
 ```
 
 # Flags
