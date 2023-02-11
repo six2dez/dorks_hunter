@@ -1,0 +1,5 @@
+cert = "company.com" && title = "admin"
+
+cert.subject = "company" && title = "admin"
+
+cert = "company.com" && body = "admin"
