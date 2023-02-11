@@ -1,6 +1,6 @@
 # dorks_hunter
 Simple Google Dorks search tool
-
+# Developed BY Ali Mansour --> i am Not Author
 # Description
 
 Small utility to search for useful google dorks hardcoded in the [script](https://github.com/six2dez/dorks_hunter/blob/8655c077c54b82fd6430392dcf9a26d5f1f14ff3/dorks_hunter.py#L35), basically I rewrote [degoogle_hunter](https://github.com/six2dez/degoogle_hunter) for [reconFTW's](https://github.com/six2dez/reconFTW) OSINT section

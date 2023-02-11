@@ -4,21 +4,23 @@ import time
 import tldextract
 import argparse
 from googlesearch import search
-
+from os.path import isfile
+from requests.utils import requote_uri
 def parseArgs():
     message = "Simple Google dork search"
     parser = argparse.ArgumentParser(description=message)
     parser.add_argument('--domain', '-d', required=True, help='Domain to scan')
     parser.add_argument('--results', '-r', help='Number of results per search, default 10', type=int)
     parser.add_argument('--output', '-o', help='Output file')
+    parser.add_argument('--wordpress','-w',help="Use Dorks Of wordpress")
     parser.parse_args()
     args = parser.parse_args()
     return args
 
 def save(file,data):
+
     file = open((file), "a")
-    file.write(str(data))
-    file.write("\n")
+    file.write(str(data) + '\n')
     file.close()
 
 def main():
@@ -31,6 +33,7 @@ def main():
     counter = 0
     domain = inputs.domain
     target = tldextract.extract(str(domain)).domain
+    #print(inputs.open)
 
     dorks = {
     "# .git folders (https://www.google.com/search?q=inurl%3A%5C%22%2F.git%5C%22%20"+domain+"%20-github)": "inurl:\"/.git\" "+domain+" -github",
@@ -59,11 +62,22 @@ def main():
     "# Apache Struts RCE (https://www.google.com/search?q=site%3A"+domain+"%20ext%3Aaction%20%7C%20ext%3Astruts%20%7C%20ext%3Ado)": "site:"+domain+" ext:action | ext:struts | ext:do",
     "# Linkedin employees (https://www.google.com/search?q=site%3Alinkedin.com%20employees%20"+domain+")": "site:linkedin.com employees "+domain+"",
     }
-
+    if isfile("dorks_google.txt"):
+        with open("dorks_google.txt", 'r')as f:
+            for do in f.readlines():
+                do = do.rstrip()
+                dox = do.replace("$",domain)
+                dorks.update({"(" + requote_uri(f"https://www.google.com/search?q={dox}") + ")":dox})
+                
+        if bool(inputs.wordpress):
+            if isfile("wordpress_dorks.txt"):
+                with open("wordpress_dorks.txt" , 'r')as w_w:
+                    for doo in w_w:
+                        doo = doo.rstrip()
+                        dorks.update({"(" + requote_uri(f"https://www.google.com/search?q=site:{domain} inurl:{doo}" + ")"):f"site:{domain} inurl:{doo}"})
     for description, dork in dorks.items():
-        print ("\n"+description+"\n")
         if bool(inputs.output):
-            save(inputs.output,description)
+            save(inputs.output,description.split('(')[-1][:len(description.split('(')[-1]) -1])
         try:
             for results in search(dork, tld="com", lang="en", num=int(amount), start=0, stop=None, pause=2):
                 print (results)

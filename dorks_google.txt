@@ -1,0 +1,59 @@
+site:*.$ inurl:admin | login | inurl:.php | .asp
+site:$ ext:action
+site:$ ext:do
+site:$ ext:xlsx | ext:csv | ext:db | ext:sqlite
+inurl:$ intitle:"index of"
+inurl:$ intitle:"index of /" "*key.pem"
+inurl:$ ext:log
+inurl:$ intitle:"index of" ext:sql|xls|xml|json|csv
+inurl:$ "MYSQL_ROOT_PASSWORD:" ext:env OR ext:yml -git
+inurl:$ intitle:"index of" "config.db"
+inurl:$ allintext:"API_SECRET*" ext:env | ext:yml
+inurl:$ intext:admin ext:sql inurl:admin
+inurl:$ allintext:username,password filetype:log
+site:$ inurl:id_rsa
+site:$ intitle:index.of.secret
+site:$ intitle:index.of.private
+site:$ intitle:index.of.secure
+site:$ intext:"index of" "ipaddress"
+site:$ intext:"index of" ".html
+site:$ inurl:/_hcms/
+site:$ inurl:$ ext:txt | ext:sql | ext:cnf | ext:config | ext:log & intext:"admin" | intext:"root" | intext:"administrator" & intext:"password" | intext:"root" | intext:"admin" | intext:"administrator"
+site:$ inurl: admin | administrator | adm | login | l0gin | wp-login
+site:$ intitle: "login" "admin"
+site:$ intitle: "index of / admin"
+site:$ inurl: admin intitle: admin intext: admin
+site:$ inurl:/wp-content/debug.log
+site:$ inurl:/_wpeprivate/config.json
+site:$ inurl:/geoserver/web/
+site:$ inurl:/proxy
+site:$ intitle:"index of" inurl:ftp intext:admin
+site:$ intitle:"index of" "system/config"
+site:$ intitle:"index of" "admin/config"
+site:$ intitle:"index of" "/config/sql"
+site:$ intitle:"index of" "api/admin"
+site:$ intitle:"index of" "tinyfilemanger.php"
+site:$ intitle:"index of" "test/storage/framework/sessions/"
+site:$ intitle:"index of" "symfony/config"
+site:$ intitle:"index of" "graphql/subscription"
+site:$ intitle:"index of" "/admin/backup"
+site:$ intitle:"index of" "admin/json"
+site:$ intitle:"index of" "/admin_backup"
+site:$ intitle:"index of" "git-jira-log"
+site:$ intitle:"index of" db.frm
+site:$ intitle:"index of" "/db_backups/"
+site:$ intitle:"index of" "global.asa"
+site:$ intitle:"index of" "proxy.pac" OR "proxy.pac.bak"
+site:$ intitle:"index of" "MySQL-Router"
+site:$ intitle:"index of" "common.crt" OR "ca.crt"
+site:$ inurl:login.php
+site:$ intext:"login"
+site:$ inurl:portal.php
+site:$ inurl:register.php
+site:$ inurl:.php?id=
+site:$ inurl:.php?user=
+site:$ inurl:.php?book=
+site:$ filetype:php
+site:$ filetype:aspx
+site:$ filetype:swf
+site:$ filetype:wsdl
