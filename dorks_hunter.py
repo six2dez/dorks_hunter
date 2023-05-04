@@ -65,7 +65,7 @@ def main():
         if bool(inputs.output):
             save(inputs.output,description)
         try:
-            for results in search(dork, lang="en", num_results=int(amount)):
+            for results in search(dork, lang="en"):
                 print (results)
                 time.sleep(0.1)
                 requ += 1
