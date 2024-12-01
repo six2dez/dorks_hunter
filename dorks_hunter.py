@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 import random
 import time
 import tldextract
@@ -82,6 +83,10 @@ def main():
                     break
         except Exception as e:
             print(e)
+            
+        except KeyboardInterrupt:
+            print("\nProcess interrupted by user.")
+            sys.exit(0)
 
 if __name__ == '__main__':
     main()
