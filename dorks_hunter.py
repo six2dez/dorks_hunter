@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
-import random
-import time
 import tldextract
 import argparse
-from googlesearch import search
-from fake_useragent import UserAgent
+import subprocess
 
 def parseArgs():
     message = "Simple Google dork search"
     parser = argparse.ArgumentParser(description=message)
     parser.add_argument('--domain', '-d', required=True, help='Domain to scan')
-    parser.add_argument('--results', '-r', help='Number of results per search, default 10', type=int)
     parser.add_argument('--output', '-o', help='Output file')
     parser.parse_args()
     args = parser.parse_args()
@@ -23,13 +19,9 @@ def save(file, data):
 
 def main():
     inputs = parseArgs()
-    amount = inputs.results if inputs.results else 10
-    requ = 0
     domain = inputs.domain
     target = tldextract.extract(str(domain)).domain
 
-    # Initialize the UserAgent object
-    ua = UserAgent()
 
     dorks = {
     "# .git folders (https://www.google.com/search?q=inurl%3A%22%2F.git%22"+domain+"+-github)": "inurl:\"/.git\" "+domain+" -github",
@@ -65,23 +57,15 @@ def main():
         if inputs.output:
             save(inputs.output, description)
         try:
-            for results in search(dork, lang="en", user_agent=ua.random):
-                print(results)
-
-                # Randomize sleep time
-                time.sleep(random.uniform(1, 15))  # Sleep for a random time between 1 and 5 seconds
-
-                requ += 1
-                if inputs.output:
-                    save(inputs.output, results)
-
-                # Randomize sleep time again
-                time.sleep(random.uniform(1, 15))  # Sleep for a random time between 1 and 5 seconds
-
-                if requ >= amount:
-                    break
-        except Exception as e:
-            print(e)
+            print(f"[*] Running: xnldorker -i \"{dork}\"")
+            result = subprocess.run(["xnldorker", "-i", dork, "-nb","-s duckduckgo,bing,startpage,google,yandex"], text=True, capture_output=True)
+            print(result.stdout)
+            print(result.stderr)
+            if inputs.output:
+                save(inputs.output, result.stdout)
+                save(inputs.output, result.stderr)
+        except subprocess.CalledProcessError as e:
+            print(f"[!] Error running xnldorker for dork: {dork}\n{e}")
 
 if __name__ == '__main__':
     main()
