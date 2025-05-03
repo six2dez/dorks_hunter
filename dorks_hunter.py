@@ -60,10 +60,8 @@ def main():
             print(f"[*] Running: xnldorker -i \"{dork}\"")
             result = subprocess.run(["xnldorker", "-i", dork, "-nb","-s duckduckgo,bing,startpage,google,yandex"], text=True, capture_output=True)
             print(result.stdout)
-            print(result.stderr)
             if inputs.output:
                 save(inputs.output, result.stdout)
-                save(inputs.output, result.stderr)
         except subprocess.CalledProcessError as e:
             print(f"[!] Error running xnldorker for dork: {dork}\n{e}")
 
