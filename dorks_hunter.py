@@ -58,12 +58,19 @@ def main():
             save(inputs.output, description)
         try:
             print(f"[*] Running: xnldorker -i \"{dork}\"")
-            result = subprocess.run(["xnldorker", "-i", dork, "-nb","-s duckduckgo,bing,startpage,google,yandex"], text=True, capture_output=True)
+            result = subprocess.run(
+                ["xnldorker", "-i", dork, "-nb", "-s", "duckduckgo,bing,startpage,google,yandex"],
+                text=True, capture_output=True, timeout=60
+            )
             print(result.stdout)
             if inputs.output:
                 save(inputs.output, result.stdout)
         except subprocess.CalledProcessError as e:
             print(f"[!] Error running xnldorker for dork: {dork}\n{e}")
+        except subprocess.TimeoutExpired:
+            print(f"[!] Timeout after 60s for dork: {dork}")
+            if inputs.output:
+                save(inputs.output, f"[!] Timeout after 60s for dork: {dork}")
 
 if __name__ == '__main__':
     main()
