@@ -1,0 +1,2 @@
+[console_scripts]
+dorks-hunter = dorks_hunter:main
