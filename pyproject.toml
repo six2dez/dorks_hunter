@@ -1,0 +1,23 @@
+[project]
+name = "dorks-hunter"
+version = "0.1.0"
+description = "Simple Google dork search wrapper around xnldorker to find sensitive information exposed by a domain."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "tldextract>=5.3.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/six2dez/dorks_hunter"
+Repository = "https://github.com/six2dez/dorks_hunter"
+
+[project.scripts]
+dorks-hunter = "dorks_hunter:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["dorks_hunter"]

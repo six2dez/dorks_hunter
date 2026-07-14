@@ -1,0 +1,27 @@
+name: Publish release to PyPI
+
+on:
+  push:
+    tags:
+      # Publish on any tag starting with `v`, e.g. v0.1.0
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+    permissions:
+      id-token: write   # required for PyPI trusted publishing (OIDC)
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+      - name: Set up Python
+        run: uv python install
+      - name: Build
+        run: uv build
+      - name: Publish
+        run: uv publish
