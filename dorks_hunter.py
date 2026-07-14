@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 import tldextract
 import argparse
 import subprocess
@@ -73,4 +74,8 @@ def main():
                 save(inputs.output, f"[!] Timeout after 60s for dork: {dork}")
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nProcess interrupted by user.")
+        sys.exit(0)
